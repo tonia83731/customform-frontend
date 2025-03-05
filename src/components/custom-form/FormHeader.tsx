@@ -28,7 +28,7 @@ const FormHeader = () => {
   };
   const handleFormInfoBlur = async () => {
     try {
-      const res = await axiosFetch("PUT", `/forms/${formId}/edit-form`, {
+      const res = await axiosFetch("PUT", `/forms/${formId}/edit-form`, true, {
         title: formInfo.title,
         description: formInfo.description,
         message: formInfo.message,

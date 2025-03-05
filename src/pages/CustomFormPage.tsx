@@ -123,7 +123,7 @@ const CustomFormPage = () => {
   // updated form published
   const handleFormPublished = async () => {
     try {
-      const res = await axiosFetch("PATCH", `/forms/${formId}/published`, true);
+      const res = await axiosFetch("PATCH", `/forms/${formId}/published`);
       if (res?.data.success) {
         dispatch(setFormInfo({ isPublished: !formInfo.isPublished }));
       }
@@ -168,7 +168,7 @@ const CustomFormPage = () => {
         `/forms/${formId}/updated-question-order`,
         true,
         {
-          sectionId: currSectionId,
+          sectionId: currSectionId || null,
           questionOrder,
         }
       );
@@ -186,7 +186,7 @@ const CustomFormPage = () => {
     if (!formId) return;
     const fetchFormInfo = async () => {
       try {
-        const res = await axiosFetch("GET", `/forms/${formId}/get-form`, true);
+        const res = await axiosFetch("GET", `/forms/${formId}/get-form`);
         if (res?.data.success) {
           const form = res?.data.data || {};
 
@@ -231,7 +231,7 @@ const CustomFormPage = () => {
 
     const fetchFormQuestions = async () => {
       try {
-        const res = await axiosFetch("GET", url, true);
+        const res = await axiosFetch("GET", url);
 
         if (res?.data.success) {
           const question = res?.data.data;

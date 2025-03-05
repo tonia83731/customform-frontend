@@ -7,6 +7,8 @@ const ResponseHeader = () => {
   const currSectionInfo = useSelector(
     (state: RootState) => state.response.currSectionInfo
   );
+
+  console.log(formInfo);
   return (
     <>
       <QuestionLayout colorClass="bg-midnight text-white py-2">

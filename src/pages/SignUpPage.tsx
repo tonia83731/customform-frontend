@@ -1,47 +1,42 @@
 import { FormEvent, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
-import { addUserInfo } from "../state/auth/authSlice";
 import { axiosFetch } from "../api";
 
-const SigninPage = () => {
+const SignupPage = () => {
   const navigate = useNavigate();
   const [isError, setIsError] = useState({
     status: false,
     message: "",
   });
+  const nameRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-  const dispatch = useDispatch();
+
   const handleSigninSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const name = nameRef.current?.value;
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
     if (!email || !password) return;
     try {
-      const res = await axiosFetch("POST", "/signin", false, {
+      const res = await axiosFetch("POST", "/signup", false, {
+        name,
         email,
         password,
       });
 
-      if (!res?.data.success) {
-        setIsError({
-          status: true,
-          message: "登入失敗",
-        });
-        return;
-      }
+      if (!res?.data.success) return;
       setIsError({
         status: false,
         message: "",
       });
-      const data = res?.data.data;
-      const { user, token } = data;
-      dispatch(addUserInfo({ name: user.name, email: user.email }));
-      localStorage.setItem("authToken", token);
-      navigate("/");
+      // const data = res?.data.data;
+      // const { user, token } = data;
+      // dispatch(addUserInfo({ name: user.name, email: user.email }));
+      // localStorage.setItem("authToken", token);
+      navigate("/signin");
     } catch (error) {
       console.log(error);
     }
@@ -49,16 +44,16 @@ const SigninPage = () => {
   return (
     <div className="w-full h-full min-h-screen bg-daylight relative">
       <div className="container w-full max-w-[600px] h-screen mx-auto py-[40px] px-[20px] flex flex-col justify-center items-center gap-10">
-        <div className="flex flex-col gap">
+        <div className="flex flex-col gap-1">
           <h1 className="font-bold text-3xl flex justify-start w-full">
             WELCOME BACK,
             <br className="md:hidden" />
-            SIGN IN
+            SIGN UP
           </h1>
           <div className="text-xs text-midnight-40">
-            Not a member?{" "}
+            Already a member?{" "}
             <span>
-              <Link to="/signup">SIGN UP</Link>
+              <Link to="/signin">SIGN IN</Link>
             </span>
           </div>
         </div>
@@ -67,6 +62,17 @@ const SigninPage = () => {
           onSubmit={(e) => handleSigninSubmit(e)}
         >
           <div className="flex flex-col gap-4 w-full">
+            <div className="flex flex-col gap-2 w-full">
+              <label htmlFor="name" className="text-midnight font-medium">
+                NAME
+              </label>
+              <input
+                ref={nameRef}
+                type="name"
+                className="bg-white text-midnight px-4 py-2 hover:border-b hover:border-midnight focus:border-b focus:border-midnight placeholder:text-slate-200"
+                placeholder="CUSTOMFORM"
+              />
+            </div>{" "}
             <div className="flex flex-col gap-2 w-full">
               <label htmlFor="email" className="text-midnight font-medium">
                 EMAIL
@@ -103,4 +109,4 @@ const SigninPage = () => {
   );
 };
 
-export default SigninPage;
+export default SignupPage;

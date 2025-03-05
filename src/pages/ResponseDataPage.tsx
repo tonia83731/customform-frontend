@@ -27,7 +27,7 @@ const ResponseDataPage = () => {
 
   useEffect(() => {
     const fetchResponseData = async () => {
-      const res = await axiosFetch("GET", `/forms/${formId}/responses`, true);
+      const res = await axiosFetch("GET", `/forms/${formId}/responses`);
       if (res?.data.success) {
         const { form, questions, responses } = res?.data.data || {};
 

@@ -112,6 +112,7 @@ const FormSections = () => {
       const res = await axiosFetch(
         "PUT",
         `/forms/${formId}/${sectionId}/updated-section`,
+        true,
         body
       );
 

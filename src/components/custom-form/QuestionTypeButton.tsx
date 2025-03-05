@@ -15,11 +15,13 @@ const QuestionTypeButton = () => {
     try {
       const body = {
         questionType,
-        sectionId: currSectionId,
+        sectionId: currSectionId || null,
       };
+      // console.log(body);
       const res = await axiosFetch(
         "POST",
         `/forms/${formId}/add-question`,
+        true,
         body
       );
 

@@ -183,10 +183,16 @@ const ResponseFormPage = ({ mode }: { mode: "preview" | "response" }) => {
   }, [formId, mode]);
 
   useEffect(() => {
-    if (!formId || (mode === "response" && !isValid)) return;
+    if (!formId) return;
+    //  || (mode === "response" && !isValid)
     const fetchFormInfo = async () => {
+      const url =
+        mode === "response"
+          ? `/responses/${formId}/form`
+          : `/forms/${formId}/get-preview-form`;
+      const auth = mode === "response" ? false : true;
       try {
-        const res = await axiosFetch("GET", `/responses/${formId}/form`, false);
+        const res = await axiosFetch("GET", url, auth);
         if (res?.data.success) {
           const { form, questions } = res?.data.data || {};
 
@@ -399,7 +405,6 @@ const ResponseFormPage = ({ mode }: { mode: "preview" | "response" }) => {
         </div>
       </DefaultLayout>
       {submitToggle && <ResponseCompleteNote countDown={countDown} />}
-      {/* <ResponseCompleteNote countDown={countDown} /> */}
     </>
   );
 };

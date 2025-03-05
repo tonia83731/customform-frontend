@@ -165,7 +165,12 @@ QuestionPropsType) => {
     const body = questionLists.find((question) => question._id === id);
     if (!body) return;
     try {
-      const res = await axiosFetch("PUT", `/forms/${_id}/edit-question`, body);
+      const res = await axiosFetch(
+        "PUT",
+        `/forms/${_id}/edit-question`,
+        true,
+        body
+      );
       if (res?.data.success) {
         dispatch(setFocusedQuestion(null));
       }

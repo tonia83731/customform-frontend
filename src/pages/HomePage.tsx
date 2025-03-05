@@ -55,7 +55,7 @@ const HomePage = () => {
   };
   const handleFormDelete = async (id: string) => {
     try {
-      const res = await axiosFetch("DELETE", `/forms/${id}/delete-form`, true);
+      const res = await axiosFetch("DELETE", `/forms/${id}/delete-form`);
       if (res?.data.success) {
         dispatch(deleteForm(id));
       }
@@ -76,7 +76,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchForms = async () => {
       try {
-        const res = await axiosFetch("GET", "/forms", true);
+        const res = await axiosFetch("GET", "/forms");
         if (res?.data.success) {
           const forms = res?.data.data;
           dispatch(initializedFormLists(forms));
