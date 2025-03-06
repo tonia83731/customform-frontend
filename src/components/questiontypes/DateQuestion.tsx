@@ -30,8 +30,6 @@ const DateQuestion = ({
     time: dateOptions === "time" || dateOptions === "both",
   });
 
-  console.log(dateOptions);
-
   return (
     <>
       <div className="p-4 flex flex-col gap-4">
