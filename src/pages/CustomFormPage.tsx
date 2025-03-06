@@ -320,7 +320,7 @@ const CustomFormPage = () => {
           <div className="grid grid-cols-2 gap-4">
             {questionLists.length > 0 && focusedQuestionId === null ? (
               <Link
-                to={`/preview/${formInfo.id}`}
+                to={`/preview/${formId}`}
                 target="_blank"
                 className="cursor-pointer text-center bg-grass text-white rounded-md px-4 py-2 hover:shadow-md"
               >

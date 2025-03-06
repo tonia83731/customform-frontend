@@ -8,7 +8,7 @@ const ResponseHeader = () => {
     (state: RootState) => state.response.currSectionInfo
   );
 
-  console.log(formInfo);
+  // console.log(formInfo);
   return (
     <>
       <QuestionLayout colorClass="bg-midnight text-white py-2">

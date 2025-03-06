@@ -30,6 +30,8 @@ const DateQuestion = ({
     time: dateOptions === "time" || dateOptions === "both",
   });
 
+  console.log(dateOptions);
+
   return (
     <>
       <div className="p-4 flex flex-col gap-4">
@@ -44,23 +46,23 @@ const DateQuestion = ({
                 id="date"
                 className="accent-midnight"
                 onChange={(e) => {
-                  setRequiredType((prev) => ({
-                    ...prev,
-                    date: e.target.checked,
-                  }));
-                  dispatch(
-                    updatedQuestion({
-                      id,
-                      updates: {
-                        dateOptions:
-                          requiredType.date && requiredType.time
-                            ? "both"
-                            : requiredType.date
-                            ? "date"
-                            : "time",
-                      },
-                    })
-                  );
+                  setRequiredType((prev) => {
+                    const updatedType = { ...prev, date: e.target.checked };
+                    dispatch(
+                      updatedQuestion({
+                        id,
+                        updates: {
+                          dateOptions:
+                            updatedType.date && updatedType.time
+                              ? "both"
+                              : updatedType.date
+                              ? "date"
+                              : "time",
+                        },
+                      })
+                    );
+                    return updatedType;
+                  });
                 }}
               />
               <label htmlFor="date" className="">
@@ -101,23 +103,23 @@ const DateQuestion = ({
                 id="time"
                 className="accent-midnight"
                 onChange={(e) => {
-                  setRequiredType((prev) => ({
-                    ...prev,
-                    time: e.target.checked,
-                  }));
-                  dispatch(
-                    updatedQuestion({
-                      id,
-                      updates: {
-                        dateOptions:
-                          requiredType.date && requiredType.time
-                            ? "both"
-                            : requiredType.date
-                            ? "date"
-                            : "time",
-                      },
-                    })
-                  );
+                  setRequiredType((prev) => {
+                    const updatedType = { ...prev, time: e.target.checked };
+                    dispatch(
+                      updatedQuestion({
+                        id,
+                        updates: {
+                          dateOptions:
+                            updatedType.date && updatedType.time
+                              ? "both"
+                              : updatedType.date
+                              ? "date"
+                              : "time",
+                        },
+                      })
+                    );
+                    return updatedType;
+                  });
                 }}
               />
               <label htmlFor="time" className="">
