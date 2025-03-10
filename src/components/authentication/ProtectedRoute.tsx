@@ -8,10 +8,13 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
   const authToken = localStorage.getItem("authToken");
-  const [isAuth, setIsAuth] = useState(null);
+  const [isAuth, setIsAuth] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (!authToken) return;
+    if (!authToken) {
+      setIsAuth(false);
+      return;
+    }
     const fetchCheckedAuth = async () => {
       try {
         const res = await axiosFetch("GET", "/auth");
@@ -23,12 +26,17 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
         }
       } catch (error) {
         console.log(error);
+        setIsAuth(false);
       }
     };
     fetchCheckedAuth();
   }, [authToken]);
 
-  return authToken && isAuth ? element : <Navigate to="/signin" replace />;
+  if (isAuth === null) {
+    return <div>Loading...</div>;
+  }
+
+  return isAuth ? element : <Navigate to="/signin" replace />;
 };
 
 export default ProtectedRoute;
