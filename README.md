@@ -72,3 +72,17 @@ Since Google Forms could not meet specific requirements, this customized form pl
   - Allowed user to set form visibility duration, e.g. the form is visible for 3 days and will automatically close afterward
 - Data-driven Form Content: Visualize and output the data based on user responses
 - Auto Save Form: Enable auto-saving so users can continue filling out the form from where they left off upon returning
+
+## Project Setup
+
+```sh
+git clone https://github.com/tonia83731/customform-frontend.git
+```
+
+```sh
+npm install
+```
+
+```sh
+npm run dev
+```
